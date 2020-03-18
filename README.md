@@ -134,6 +134,7 @@ Media management.
     deleteUsage($query);
     getCollections($query);
     getCollectionAssets($collectionId);
+    getDeletedMedia($query);
 ```
 
 ## Tests

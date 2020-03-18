@@ -380,4 +380,18 @@ class AssetBankManager
     {
         return $this->requestHandler->sendRequestAsync('GET', "api/v4/collections/$collectionId/media/");
     }
+
+    /**
+     * Retrieves recently removed assets
+     *
+     * @param  array  $query
+     * @return \GuzzleHttp\Promise\Promise
+     * @throws \GuzzleHttp\Exception\RequestException
+     */
+    public function getDeletedMedia($query = null)
+    {
+        return $this->requestHandler->sendRequestAsync('GET', 'api/trash/media/',
+            ['query' => $query]
+        );
+    }
 }

@@ -705,4 +705,29 @@ class AssetBankManagerTest extends TestCase
         self::assertNotNull($collectionList);
         self::assertEquals($collectionList, $returnedCollections);
     }
+
+    /**
+     * Tests the getDeletedMedia function.
+     *
+     * @covers \Bynder\Api\Impl\AssetBankManager::getDeletedMedia()
+     * @throws \Exception
+     */
+    public function testGetDeletedMedia()
+    {
+        $returnedMedia = [];
+        $stub = $this->getMockBuilder('Bynder\Api\Impl\OAuth2\RequestHandler')
+            ->disableOriginalConstructor()
+            ->getMock();
+            $query = [
+                'count' => true,
+                'limit' => 2
+            ];
+            $stub->method('sendRequestAsync')
+                ->with('GET', 'api/trash/media/', ['query' => $query])
+                ->willReturn($returnedMedia);
+        $assetBankManager = new AssetBankManager($stub);
+        $result = $assetBankManager->getDeletedMedia($query);
+        self::assertNotNull($result);
+        self::assertEquals($result, array());
+    }
 }
