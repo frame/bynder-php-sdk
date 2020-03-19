@@ -122,7 +122,8 @@ try {
     // Upload a file and create an Asset.
     $data = [
         // Will need to create this file for successful test call
-        'filePath' => 'image.png',
+        'filePath' => 'path/image.png',
+        'fileName' => 'filename.png',
         'brandId' => $brandsList[0]['id'],
         'name' => 'Image name',
         'description' => 'Image description'

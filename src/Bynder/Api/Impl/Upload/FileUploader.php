@@ -100,7 +100,10 @@ class FileUploader
         $uploadedFilePromise = $this->getClosestUploadEndpoint()
             ->then(
                 function () use ($data) {
-                    return $this->requestUploadInformationAsync($data['filePath']);
+                    if (!isset($data['fileName']) || strlen($data['fileName']) == 0) {
+                        $data['fileName'] = basename($data['filePath']);
+                    }
+                    return $this->requestUploadInformationAsync($data['fileName']);
                 })
             ->then(
                 function ($uploadRequestInfo) use ($data) {
@@ -183,11 +186,11 @@ class FileUploader
      * @return Promise\Promise Relevant S3 file information, necessary for the file upload.
      * @throws Exception
      */
-    private function requestUploadInformationAsync($filePath)
+    private function requestUploadInformationAsync($fileName)
     {
         return $this->requestHandler->sendRequestAsync('POST', 'api/upload/init',
             [
-                'form_params' => ['filename' => $filePath]
+                'form_params' => ['filename' => $fileName]
             ]
         );
     }
