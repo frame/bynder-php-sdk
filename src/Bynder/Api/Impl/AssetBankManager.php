@@ -394,4 +394,21 @@ class AssetBankManager
             ['query' => $query]
         );
     }
+
+    /**
+     * Removes tag from media items (comma-separated asset ids)
+     *
+     * @param  array  $query
+     * @return \GuzzleHttp\Promise\Promise
+     * @throws \GuzzleHttp\Exception\RequestException
+     */
+    public function deleteTagFromMedia($tagId, $mediaIds = null)
+    {
+        return $this->requestHandler->sendRequestAsync('DELETE', 'api/v4/tags/' . $tagId . '/media/',
+            [
+                'query' =>
+                    ['deleteIds' => $mediaIds]
+            ]
+        );
+    }
 }

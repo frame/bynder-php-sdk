@@ -135,6 +135,7 @@ Media management.
     getCollections($query);
     getCollectionAssets($collectionId);
     getDeletedMedia($query);
+    deleteTagFromMedia($tagId, $mediaIds);
 ```
 
 ## Tests
